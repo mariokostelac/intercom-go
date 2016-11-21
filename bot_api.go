@@ -3,7 +3,7 @@ package intercom
 import (
 	"encoding/json"
 
-	"gopkg.in/intercom/intercom-go.v2/interfaces"
+	"github.com/mariokostelac/intercom-go/interfaces"
 )
 
 // BotRepository defines the interface for working with Bots through the API.
