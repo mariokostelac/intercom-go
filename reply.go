@@ -12,6 +12,7 @@ type Reply struct {
 	Email          string   `json:"email,omitempty"`
 	UserID         string   `json:"user_id,omitempty"`
 	AttachmentURLs []string `json:"attachment_urls,omitempty"`
+	Referer        string   `json:"referer,omitempty"`
 }
 
 // ReplyType determines the type of Reply
