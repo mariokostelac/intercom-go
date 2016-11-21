@@ -8,6 +8,7 @@ import (
 type Client struct {
 	// Services for interacting with various resources in Intercom.
 	Admins        AdminService
+	Bots          BotService
 	Companies     CompanyService
 	Contacts      ContactService
 	Conversations ConversationService
@@ -20,6 +21,7 @@ type Client struct {
 
 	// Mappings for resources to API constructs
 	AdminRepository        AdminRepository
+	BotRepository          BotRepository
 	CompanyRepository      CompanyRepository
 	ContactRepository      ContactRepository
 	ConversationRepository ConversationRepository
@@ -99,6 +101,7 @@ func SetHTTPClient(httpClient interfaces.HTTPClient) option {
 
 func (c *Client) setup() {
 	c.AdminRepository = AdminAPI{httpClient: c.HTTPClient}
+	c.BotRepository = BotAPI{httpClient: c.HTTPClient}
 	c.CompanyRepository = CompanyAPI{httpClient: c.HTTPClient}
 	c.ContactRepository = ContactAPI{httpClient: c.HTTPClient}
 	c.ConversationRepository = ConversationAPI{httpClient: c.HTTPClient}
@@ -108,7 +111,9 @@ func (c *Client) setup() {
 	c.SegmentRepository = SegmentAPI{httpClient: c.HTTPClient}
 	c.TagRepository = TagAPI{httpClient: c.HTTPClient}
 	c.UserRepository = UserAPI{httpClient: c.HTTPClient}
+
 	c.Admins = AdminService{Repository: c.AdminRepository}
+	c.Bots = BotService{Repository: c.BotRepository}
 	c.Companies = CompanyService{Repository: c.CompanyRepository}
 	c.Contacts = ContactService{Repository: c.ContactRepository}
 	c.Conversations = ConversationService{Repository: c.ConversationRepository}
