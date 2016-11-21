@@ -26,6 +26,7 @@ func (rum RequestUserMapper) ConvertUser(user *User) requestUser {
 		UpdateLastRequestAt:    user.UpdateLastRequestAt,
 		NewSession:             user.NewSession,
 		LastSeenUserAgent:      user.LastSeenUserAgent,
+		Avatar:                 user.Avatar,
 	}
 }
 

@@ -36,6 +36,7 @@ type requestUser struct {
 	UpdateLastRequestAt    *bool                  `json:"update_last_request_at,omitempty"`
 	NewSession             *bool                  `json:"new_session,omitempty"`
 	LastSeenUserAgent      string                 `json:"last_seen_user_agent,omitempty"`
+	Avatar                 *UserAvatar            `json:"avatar,omitempty"`
 }
 
 func (api UserAPI) find(params UserIdentifiers) (User, error) {

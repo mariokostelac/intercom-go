@@ -104,6 +104,7 @@ func (api ContactAPI) buildRequestContact(contact *Contact) requestUser {
 		CustomAttributes:       contact.CustomAttributes,
 		UpdateLastRequestAt:    contact.UpdateLastRequestAt,
 		NewSession:             contact.NewSession,
+		Avatar:                 contact.Avatar,
 	}
 }
 
