@@ -7,6 +7,7 @@ type Reply struct {
 	Body           string   `json:"body,omitempty"`
 	AssigneeID     string   `json:"assignee_id,omitempty"`
 	AdminID        string   `json:"admin_id,omitempty"`
+	BotID          string   `json:"bot_id,omitempty"`
 	IntercomID     string   `json:"intercom_user_id,omitempty"`
 	Email          string   `json:"email,omitempty"`
 	UserID         string   `json:"user_id,omitempty"`

@@ -108,30 +108,31 @@ func (c *ConversationService) MarkRead(id string) (Conversation, error) {
 	return c.Repository.read(id)
 }
 
-func (c *ConversationService) Reply(id string, author MessagePerson, replyType ReplyType, body string) (Conversation, error) {
-	return c.reply(id, author, replyType, body, nil)
+func (c *ConversationService) Reply(id string, request *Reply) (Conversation, error) {
+	return c.Repository.reply(id, request)
 }
 
-// Reply to a Conversation by id
-func (c *ConversationService) ReplyWithAttachmentURLs(id string, author MessagePerson, replyType ReplyType, body string, attachmentURLs []string) (Conversation, error) {
-	return c.reply(id, author, replyType, body, attachmentURLs)
-}
-
-func (c *ConversationService) reply(id string, author MessagePerson, replyType ReplyType, body string, attachmentURLs []string) (Conversation, error) {
+func (c *ConversationService) ReplyRequest(author MessagePerson, replyType ReplyType, body string) Reply {
 	addr := author.MessageAddress()
 	reply := Reply{
-		Type:           addr.Type,
-		ReplyType:      replyType.String(),
-		Body:           body,
-		AttachmentURLs: attachmentURLs,
+		Type:      addr.Type,
+		ReplyType: replyType.String(),
+		Body:      body,
 	}
 	if addr.Type == "admin" {
 		reply.AdminID = addr.ID
+	} else if addr.Type == "bot" {
+		reply.BotID = addr.ID
 	} else {
 		reply.IntercomID = addr.ID
 		reply.UserID = addr.UserID
 		reply.Email = addr.Email
 	}
+	return reply
+}
+
+func (c *ConversationService) reply(id string, author MessagePerson, replyType ReplyType, body string) (Conversation, error) {
+	reply := c.ReplyRequest(author, replyType, body)
 	return c.Repository.reply(id, &reply)
 }
 
@@ -150,12 +151,12 @@ func (c *ConversationService) Assign(id string, assigner, assignee *Admin) (Conv
 
 // Open a Conversation (without a body)
 func (c *ConversationService) Open(id string, opener *Admin) (Conversation, error) {
-	return c.reply(id, opener, CONVERSATION_OPEN, "", nil)
+	return c.reply(id, opener, CONVERSATION_OPEN, "")
 }
 
 // Close a Conversation (without a body)
 func (c *ConversationService) Close(id string, closer *Admin) (Conversation, error) {
-	return c.reply(id, closer, CONVERSATION_CLOSE, "", nil)
+	return c.reply(id, closer, CONVERSATION_CLOSE, "")
 }
 
 type conversationListParams struct {

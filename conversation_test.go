@@ -29,21 +29,8 @@ func TestReplyConversationComment(t *testing.T) {
 		}
 	}
 	conversationService := ConversationService{Repository: testAPI}
-	conversationService.Reply("123", &User{ID: "abc123"}, CONVERSATION_COMMENT, "Body")
-}
-
-func TestReplyConversationCommentWithAttachment(t *testing.T) {
-	testAPI := TestConversationAPI{t: t}
-	testAPI.testFunc = func(t *testing.T, reply interface{}) {
-		if reply.(*Reply).IntercomID != "abc123" {
-			t.Errorf("user id not supplied")
-		}
-		if reply.(*Reply).ReplyType != "comment" {
-			t.Errorf("part was not comment, was %s", reply.(*Reply).ReplyType)
-		}
-	}
-	conversationService := ConversationService{Repository: testAPI}
-	conversationService.ReplyWithAttachmentURLs("123", &User{ID: "abc123"}, CONVERSATION_COMMENT, "Body", []string{"http://www.example.com/attachment.jpg"})
+	reply := conversationService.ReplyRequest(&User{ID: "abc123"}, CONVERSATION_COMMENT, "Body")
+	conversationService.Reply("123", &reply)
 }
 
 func TestReplyConversationOpen(t *testing.T) {
@@ -57,7 +44,8 @@ func TestReplyConversationOpen(t *testing.T) {
 		}
 	}
 	conversationService := ConversationService{Repository: testAPI}
-	conversationService.Reply("123", &User{ID: "abc123"}, CONVERSATION_OPEN, "Body")
+	reply := conversationService.ReplyRequest(&User{ID: "abc123"}, CONVERSATION_OPEN, "Body")
+	conversationService.Reply("123", &reply)
 }
 
 func TestReplyConversationNote(t *testing.T) {
@@ -71,7 +59,8 @@ func TestReplyConversationNote(t *testing.T) {
 		}
 	}
 	conversationService := ConversationService{Repository: testAPI}
-	conversationService.Reply("123", &Admin{ID: "abc123"}, CONVERSATION_NOTE, "Body")
+	reply := conversationService.ReplyRequest(&Admin{ID: "abc123"}, CONVERSATION_NOTE, "Body")
+	conversationService.Reply("123", &reply)
 }
 
 func TestAssignConversation(t *testing.T) {
