@@ -46,23 +46,25 @@ func (template *MessageTemplate) UnmarshalJSON(b []byte) error {
 
 // MessageRequest represents a Message to be sent through Intercom from/to an Admin, User, or Contact.
 type MessageRequest struct {
-	MessageType string         `json:"message_type,omitempty"`
-	Subject     string         `json:"subject,omitempty"`
-	Body        string         `json:"body,omitempty"`
-	Template    string         `json:"template,omitempty"`
-	From        MessageAddress `json:"from,omitempty"`
-	To          MessageAddress `json:"to,omitempty"`
+	MessageType    string         `json:"message_type,omitempty"`
+	Subject        string         `json:"subject,omitempty"`
+	Body           string         `json:"body,omitempty"`
+	Template       string         `json:"template,omitempty"`
+	From           MessageAddress `json:"from,omitempty"`
+	To             MessageAddress `json:"to,omitempty"`
+	AttachmentURLs []string       `json:"attachment_urls,omitempty"`
 }
 
 // MessageResponse represents a Message to be sent through Intercom from/to an Admin, User, or Contact.
 type MessageResponse struct {
-	MessageType string          `json:"message_type,omitempty"`
-	ID          string          `json:"id"`
-	CreatedAt   int64           `json:"created_at,omitempty"`
-	Owner       MessageAddress  `json:"owner,omitempty"`
-	Subject     string          `json:"subject,omitempty"`
-	Body        string          `json:"body,omitempty"`
-	Template    MessageTemplate `json:"template,omitempty"`
+	MessageType    string          `json:"message_type,omitempty"`
+	ID             string          `json:"id"`
+	CreatedAt      int64           `json:"created_at,omitempty"`
+	Owner          MessageAddress  `json:"owner,omitempty"`
+	Subject        string          `json:"subject,omitempty"`
+	Body           string          `json:"body,omitempty"`
+	Template       MessageTemplate `json:"template,omitempty"`
+	AttachmentURLs []string        `json:"attachment_urls,omitempty"`
 }
 
 func (m MessageResponse) String() string {
