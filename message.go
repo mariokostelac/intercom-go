@@ -53,6 +53,7 @@ type MessageRequest struct {
 	From           MessageAddress `json:"from,omitempty"`
 	To             MessageAddress `json:"to,omitempty"`
 	AttachmentURLs []string       `json:"attachment_urls,omitempty"`
+	Referer        string         `json:"referer,omitempty"`
 }
 
 // MessageResponse represents a Message to be sent through Intercom from/to an Admin, User, or Contact.
@@ -65,6 +66,7 @@ type MessageResponse struct {
 	Body           string          `json:"body,omitempty"`
 	Template       MessageTemplate `json:"template,omitempty"`
 	AttachmentURLs []string        `json:"attachment_urls,omitempty"`
+	Referer        string          `json:"referer,omitempty"`
 }
 
 func (m MessageResponse) String() string {
